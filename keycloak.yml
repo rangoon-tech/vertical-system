@@ -1,0 +1,76 @@
+version: '2'
+services:
+  postgres:
+    image: postgres
+    container_name: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: keycloak      
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Passw0rd
+      POSTGRES_ROOT_PASSWORD: Passw0rd
+    networks:
+      proxy:
+    labels:
+      - "traefik.enable=false"
+    ports:
+      - 5432:5432
+
+  keycloak:
+    image: jboss/keycloak:latest
+    container_name: keycloak
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - proxy
+    command:
+      [
+        '-b',
+        '0.0.0.0',
+        '-Dkeycloak.migration.action=import',
+        '-Dkeycloak.migration.provider=dir',
+        '-Dkeycloak.migration.dir=/opt/jboss/keycloak/realm-config',
+        '-Dkeycloak.migration.strategy=IGNORE_EXISTING',
+        '-Djboss.socket.binding.port-offset=1000',
+        '-Dkeycloak.profile.feature.upload_scripts=enabled',
+      ]
+    volumes:
+      - ./keycloak/realm-config:/opt/jboss/keycloak/realm-config
+      # - ./keycloak/keycloak-db:/opt/jboss/keycloak/standalone/data
+      - ./keycloak/themes/vertical/:/opt/jboss/keycloak/themes/vertical/
+      # - ./keycloak/themes/deploy:/opt/jboss/keycloak/standalone/deployments/
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.keycloak.entrypoints=http"
+      - "traefik.http.routers.keycloak.rule=Host(`auth.rangoon-tech.com`)"
+      - "traefik.http.middlewares.keycloak-https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.routers.keycloak.middlewares=keycloak-https-redirect"
+      - "traefik.http.routers.keycloak-secure.entrypoints=https"
+      - "traefik.http.routers.keycloak-secure.rule=Host(`auth.rangoon-tech.com`)"
+      - "traefik.http.routers.keycloak-secure.tls=true"
+      # - "traefik.http.routers.keycloak-secure.tls.certresolver=http"
+      - "traefik.http.routers.keycloak-secure.service=keycloak"
+      - "traefik.http.services.keycloak.loadbalancer.server.port=9080"
+      - "traefik.docker.network=proxy"
+    environment:
+      - KEYCLOAK_LOGLEVEL=INFO
+      - KEYCLOAK_USER=admin
+      - KEYCLOAK_PASSWORD=Passw0rd
+      - DB_VENDOR=POSTGRES
+      - DB_ADDR=postgres
+      - DB_DATABASE=keycloak
+      - DB_USER=postgres
+      - DB_SCHEMA=public
+      - DB_PASSWORD=Passw0rd
+      - PROXY_ADDRESS_FORWARDING=true
+      - DB_PORT=5432
+
+    ports:
+      - 9080:9080
+      - 9443:9443
+      - 10990:10990
+networks:
+  proxy:
+    external: true

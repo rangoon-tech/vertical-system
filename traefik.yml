@@ -1,0 +1,50 @@
+version: '2'
+
+services:
+  reverse-proxy:
+    # The official v2 Traefik docker image
+    image: traefik:v2.1
+    container_name: reverse-proxy
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - proxy
+    # Enables the web UI and tells Traefik to listen to docker
+    command: --api.insecure=true --providers.docker
+    ports:
+      # The HTTP port
+      - "80:80"
+      # The Web UI (enabled by --api.insecure=true)
+      - "443:443"
+      - "28080:8080"
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./traefik/traefik.yml:/traefik.yml:ro
+      - ./traefik/acme.json:/acme.json
+      - ./traefik/config.yml:/config.yml:ro
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.traefik.entrypoints=http"
+      - "traefik.http.routers.traefik.rule=Host(`traefik.rangoon-tech.com`)"
+      - "traefik.http.middlewares.traefik-auth.basicauth.users=admin:{SHA}6/x5EAd3cMg0D2PNLcoqwfEgRE8="
+      - "traefik.http.middlewares.traefik-https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.routers.traefik.middlewares=traefik-https-redirect"
+      - "traefik.http.routers.traefik-secure.entrypoints=https"
+      - "traefik.http.routers.traefik-secure.rule=Host(`traefik.rangoon-tech.com`)"
+      - "traefik.http.routers.traefik-secure.middlewares=traefik-auth"
+      - "traefik.http.routers.traefik-secure.tls=true"
+      # - "traefik.http.routers.traefik-secure.tls.certresolver=http"
+      - "traefik.http.routers.traefik.tls.certresolver=cloudflare"
+      - "traefik.http.routers.traefik.tls.domains[0].main=rangoon-tech.com"
+      - "traefik.http.routers.traefik.tls.domains[0].sans=*.rangoon-tech.com"
+      - "traefik.http.routers.traefik.tls.domains[1].main=zezawar.com"
+      - "traefik.http.routers.traefik.tls.domains[1].sans=*.zezawar.com"
+      - "traefik.http.routers.traefik-secure.service=api@internal"
+    environment:
+      - CF_API_EMAIL=rangoon-tech@outlook.com
+      - CF_API_KEY=7546134cb82c0902f6ba691c42cc04530f5db
+networks:
+  proxy:
+    external: true

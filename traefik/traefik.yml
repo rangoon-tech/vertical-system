@@ -1,0 +1,35 @@
+providers:
+  # consulCatalog:
+  #   prefix: traefik
+  #   exposedByDefault: false
+  #   defaultRule: "PathPrefix(`/services/{{.ServiceName}}`)"
+  #   endpoint:
+  #     address: http://127.0.0.1:8500
+  #     scheme: https
+api:
+  dashboard: true
+  debug: true
+
+entryPoints:
+  http:
+    address: ":80"
+  https:
+    address: ":443"
+
+providers:
+  docker:
+    endpoint: "unix:///var/run/docker.sock"
+    exposedByDefault: false
+  file:
+    filename: /config.yml
+
+certificatesResolvers:
+  cloudflare:
+    acme:
+      email: rangoon-tech@outlook.com
+      storage: acme.json
+      dnsChallenge:
+        provider: cloudflare
+        resolvers:
+          - "1.1.1.1:53"
+          - "1.0.0.1:53"

@@ -1,0 +1,40 @@
+version: '2'
+services:
+  consul:
+    image: consul:1.7.1
+    container_name: consul
+    ports:
+      - 8300:8300
+      - 8500:8500
+      - 8600:8600
+    networks:
+      - proxy
+    command: consul agent -dev -ui -client 0.0.0.0
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.consul.entrypoints=http"
+      - "traefik.http.routers.consul.rule=Host(`consul.rangoon-tech.com`)"
+      - "traefik.http.middlewares.consul-https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.routers.consul.middlewares=consul-https-redirect"
+      - "traefik.http.routers.consul-secure.entrypoints=https"
+      - "traefik.http.routers.consul-secure.rule=Host(`consul.rangoon-tech.com`)"
+      - "traefik.http.routers.consul-secure.tls=true"
+      # - "traefik.http.routers.consul-secure.tls.certresolver=http"
+      - "traefik.http.routers.consul-secure.service=consul"
+      - "traefik.http.services.consul.loadbalancer.server.port=8500"
+      - "traefik.docker.network=proxy"
+  consul-config-loader:
+    image: jhipster/consul-config-loader:v0.3.0
+    container_name: consul-config-loader
+    networks:
+      - proxy
+    volumes:
+      - ./central-server-config:/config
+    environment:
+      - INIT_SLEEP_SECONDS=5
+      - CONSUL_URL=consul
+      - CONSUL_PORT=8500
+
+networks:
+  proxy:
+    external: true

@@ -1,0 +1,37 @@
+version: '2'
+
+services:
+  onlineapp:
+    image: thetlwinoo/eps-online
+    container_name: eps-online
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      proxy:
+    environment:
+      - _JAVA_OPTIONS=-Xmx512m -Xms256m
+      - 'SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_OIDC_ISSUER_URI=https://auth.rangoon-tech.com/auth/realms/jhipster'
+      - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_ID=internal
+      - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_SECRET=internal
+      - JHIPSTER_SLEEP=30
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.onlineapp.entrypoints=http"
+      - "traefik.http.routers.onlineapp.rule=Host(`www.zezawar.com`)"
+      - "traefik.http.middlewares.onlineapp-https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.routers.onlineapp.middlewares=onlineapp-https-redirect"
+      - "traefik.http.routers.onlineapp-secure.entrypoints=https"
+      - "traefik.http.routers.onlineapp-secure.rule=Host(`www.zezawar.com`)"
+      - "traefik.http.routers.onlineapp-secure.tls=true"
+      # - "traefik.http.routers.seller-secure.tls.certresolver=http"
+      - "traefik.http.routers.onlineapp-secure.service=onlineapp"
+      - "traefik.http.services.onlineapp.loadbalancer.server.port=82"
+      - "traefik.docker.network=proxy"
+    ports:
+      - 8083:82
+    depends_on:
+      - vertical
+networks:
+  proxy:
+    external: true
