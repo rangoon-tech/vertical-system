@@ -13,4 +13,9 @@ docker images ls
 docker network ls
 
 docker network create proxy
+
+
 ------------------------------
+images up
+-------------
+docker-compose up -d keycloak

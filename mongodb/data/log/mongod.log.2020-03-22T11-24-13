@@ -1,0 +1,72 @@
+2020-03-18T23:01:03.130+0800 I CONTROL  [main] Trying to start Windows service 'MongoDB'
+2020-03-18T23:01:03.132+0800 I CONTROL  [initandlisten] MongoDB starting : pid=5360 port=27017 dbpath=c:\data\db 64-bit host=DESKTOP-3LV2IS3
+2020-03-18T23:01:03.132+0800 I CONTROL  [initandlisten] targetMinOS: Windows 7/Windows Server 2008 R2
+2020-03-18T23:01:03.132+0800 I CONTROL  [initandlisten] db version v3.6.4
+2020-03-18T23:01:03.133+0800 I CONTROL  [initandlisten] git version: d0181a711f7e7f39e60b5aeb1dc7097bf6ae5856
+2020-03-18T23:01:03.133+0800 I CONTROL  [initandlisten] OpenSSL version: OpenSSL 1.0.2o-fips  27 Mar 2018
+2020-03-18T23:01:03.133+0800 I CONTROL  [initandlisten] allocator: tcmalloc
+2020-03-18T23:01:03.133+0800 I CONTROL  [initandlisten] modules: enterprise 
+2020-03-18T23:01:03.133+0800 I CONTROL  [initandlisten] build environment:
+2020-03-18T23:01:03.134+0800 I CONTROL  [initandlisten]     distmod: windows-64
+2020-03-18T23:01:03.134+0800 I CONTROL  [initandlisten]     distarch: x86_64
+2020-03-18T23:01:03.134+0800 I CONTROL  [initandlisten]     target_arch: x86_64
+2020-03-18T23:01:03.134+0800 I CONTROL  [initandlisten] options: { config: "C:\Program Files\MongoDB\Server\3.6\mongod.cfg", service: true, storage: { dbPath: "c:\data\db" }, systemLog: { destination: "file", path: "c:\data\log\mongod.log" } }
+2020-03-18T23:01:03.146+0800 I -        [initandlisten] Detected data files in c:\data\db created by the 'wiredTiger' storage engine, so setting the active storage engine to 'wiredTiger'.
+2020-03-18T23:01:03.147+0800 I STORAGE  [initandlisten] wiredtiger_open config: create,cache_size=7585M,session_max=20000,eviction=(threads_min=4,threads_max=4),config_base=false,statistics=(fast),cache_cursors=false,log=(enabled=true,archive=true,path=journal,compressor=snappy),file_manager=(close_idle_time=100000),statistics_log=(wait=0),verbose=(recovery_progress),
+2020-03-18T23:01:03.280+0800 I STORAGE  [initandlisten] WiredTiger message [1584543663:280132][5360:140714109328976], txn-recover: Main recovery loop: starting at 88/923648
+2020-03-18T23:01:03.382+0800 I STORAGE  [initandlisten] WiredTiger message [1584543663:382134][5360:140714109328976], txn-recover: Recovering log 88 through 89
+2020-03-18T23:01:03.439+0800 I STORAGE  [initandlisten] WiredTiger message [1584543663:439131][5360:140714109328976], txn-recover: Recovering log 89 through 89
+2020-03-18T23:01:03.493+0800 I STORAGE  [initandlisten] WiredTiger message [1584543663:493131][5360:140714109328976], txn-recover: Set global recovery timestamp: 0
+2020-03-18T23:01:03.525+0800 I CONTROL  [initandlisten] 
+2020-03-18T23:01:03.525+0800 I CONTROL  [initandlisten] ** WARNING: Access control is not enabled for the database.
+2020-03-18T23:01:03.525+0800 I CONTROL  [initandlisten] **          Read and write access to data and configuration is unrestricted.
+2020-03-18T23:01:03.526+0800 I CONTROL  [initandlisten] 
+2020-03-18T23:01:03.526+0800 I CONTROL  [initandlisten] ** WARNING: This server is bound to localhost.
+2020-03-18T23:01:03.526+0800 I CONTROL  [initandlisten] **          Remote systems will be unable to connect to this server. 
+2020-03-18T23:01:03.526+0800 I CONTROL  [initandlisten] **          Start the server with --bind_ip <address> to specify which IP 
+2020-03-18T23:01:03.526+0800 I CONTROL  [initandlisten] **          addresses it should serve responses from, or with --bind_ip_all to
+2020-03-18T23:01:03.526+0800 I CONTROL  [initandlisten] **          bind to all interfaces. If this behavior is desired, start the
+2020-03-18T23:01:03.526+0800 I CONTROL  [initandlisten] **          server with --bind_ip 127.0.0.1 to disable this warning.
+2020-03-18T23:01:03.526+0800 I CONTROL  [initandlisten] 
+2020-03-18T23:01:03.526+0800 I CONTROL  [initandlisten] 
+2020-03-18T23:01:03.526+0800 I CONTROL  [initandlisten] ** WARNING: The file system cache of this machine is configured to be greater than 40% of the total memory. This can lead to increased memory pressure and poor performance.
+2020-03-18T23:01:03.526+0800 I CONTROL  [initandlisten] See http://dochub.mongodb.org/core/wt-windows-system-file-cache
+2020-03-18T23:01:03.526+0800 I CONTROL  [initandlisten] 
+2020-03-18T23:01:03.770+0800 I FTDC     [initandlisten] Initializing full-time diagnostic data capture with directory 'c:/data/db/diagnostic.data'
+2020-03-18T23:01:03.774+0800 I NETWORK  [initandlisten] waiting for connections on port 27017
+2020-03-18T23:01:03.774+0800 I STORAGE  [initandlisten] Service running
+2020-03-19T23:11:22.194+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:61553 #1 (1 connection now open)
+2020-03-19T23:11:22.209+0800 I NETWORK  [conn1] received client metadata from 127.0.0.1:61553 conn1: { driver: { name: "mongo-java-driver|legacy", version: "3.11.2" }, os: { type: "Windows", name: "Windows 10", architecture: "amd64", version: "10.0" }, platform: "Java/AdoptOpenJDK/11.0.5+10" }
+2020-03-19T23:11:22.351+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:61554 #2 (2 connections now open)
+2020-03-19T23:11:22.352+0800 I NETWORK  [conn2] received client metadata from 127.0.0.1:61554 conn2: { driver: { name: "mongo-java-driver|legacy", version: "3.11.2" }, os: { type: "Windows", name: "Windows 10", architecture: "amd64", version: "10.0" }, platform: "Java/AdoptOpenJDK/11.0.5+10" }
+2020-03-19T23:11:22.361+0800 I STORAGE  [conn2] createCollection: store.jhi_user with generated UUID: fec3d967-0331-4c41-86f4-7f586228f0b2
+2020-03-19T23:11:22.392+0800 I INDEX    [conn2] build index on: store.jhi_user properties: { v: 2, key: { login: 1 }, name: "login", ns: "store.jhi_user" }
+2020-03-19T23:11:22.393+0800 I INDEX    [conn2] 	 building index using bulk method; build may temporarily use up to 500 megabytes of RAM
+2020-03-19T23:11:22.396+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2020-03-19T23:11:22.408+0800 I INDEX    [conn2] build index on: store.jhi_user properties: { v: 2, key: { email: 1 }, name: "email", ns: "store.jhi_user" }
+2020-03-19T23:11:22.408+0800 I INDEX    [conn2] 	 building index using bulk method; build may temporarily use up to 500 megabytes of RAM
+2020-03-19T23:11:22.411+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2020-03-19T23:11:35.150+0800 I STORAGE  [conn2] createCollection: store.dbchangelog with generated UUID: 7e9426be-e6f1-49f1-9816-2ef9bab18bce
+2020-03-19T23:11:35.164+0800 I INDEX    [conn2] build index on: store.dbchangelog properties: { v: 2, unique: true, key: { changeId: 1, author: 1 }, name: "changeId_1_author_1", ns: "store.dbchangelog" }
+2020-03-19T23:11:35.164+0800 I INDEX    [conn2] 	 building index using bulk method; build may temporarily use up to 500 megabytes of RAM
+2020-03-19T23:11:35.167+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2020-03-19T23:11:35.168+0800 I STORAGE  [conn2] createCollection: store.mongobeelock with generated UUID: c5a80b0b-e157-4811-99cc-910e312bf906
+2020-03-19T23:11:35.185+0800 I INDEX    [conn2] build index on: store.mongobeelock properties: { v: 2, unique: true, key: { key: 1 }, name: "mongobeelock_key_idx", ns: "store.mongobeelock" }
+2020-03-19T23:11:35.185+0800 I INDEX    [conn2] 	 building index using bulk method; build may temporarily use up to 500 megabytes of RAM
+2020-03-19T23:11:35.190+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2020-03-19T23:11:35.381+0800 I STORAGE  [conn2] createCollection: store.jhi_authority with generated UUID: 3a7eb44b-6ed9-49da-a270-45a80e374731
+2020-03-19T23:15:53.931+0800 I NETWORK  [conn1] end connection 127.0.0.1:61553 (1 connection now open)
+2020-03-19T23:15:53.931+0800 I NETWORK  [conn2] end connection 127.0.0.1:61554 (0 connections now open)
+2020-03-19T23:17:26.886+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:62271 #3 (1 connection now open)
+2020-03-19T23:17:26.890+0800 I NETWORK  [conn3] received client metadata from 127.0.0.1:62271 conn3: { driver: { name: "mongo-java-driver|legacy", version: "3.11.2" }, os: { type: "Windows", name: "Windows 10", architecture: "amd64", version: "10.0" }, platform: "Java/AdoptOpenJDK/11.0.5+10" }
+2020-03-19T23:17:27.053+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:62272 #4 (2 connections now open)
+2020-03-19T23:17:27.053+0800 I NETWORK  [conn4] received client metadata from 127.0.0.1:62272 conn4: { driver: { name: "mongo-java-driver|legacy", version: "3.11.2" }, os: { type: "Windows", name: "Windows 10", architecture: "amd64", version: "10.0" }, platform: "Java/AdoptOpenJDK/11.0.5+10" }
+2020-03-19T23:23:04.795+0800 I NETWORK  [conn4] end connection 127.0.0.1:62272 (1 connection now open)
+2020-03-19T23:23:04.795+0800 I NETWORK  [conn3] end connection 127.0.0.1:62271 (0 connections now open)
+2020-03-22T19:23:25.594+0800 I CONTROL  [serviceShutdown] got SERVICE_CONTROL_PRESHUTDOWN request from Windows Service Control Manager, will terminate after current cmd ends
+2020-03-22T19:23:25.616+0800 I NETWORK  [serviceShutdown] shutdown: going to close listening sockets...
+2020-03-22T19:23:25.632+0800 F CONTROL  [thread5] Encountered an error in PeriodicRunnerASIO: The I/O operation has been aborted because of either a thread exit or an application request.
+2020-03-22T19:23:25.633+0800 I FTDC     [serviceShutdown] Shutting down full-time diagnostic data capture
+2020-03-22T19:23:25.639+0800 I STORAGE  [serviceShutdown] WiredTigerKVEngine shutting down
+2020-03-22T19:23:25.751+0800 I STORAGE  [serviceShutdown] shutdown: removing fs lock...
+2020-03-22T19:23:25.753+0800 I CONTROL  [serviceShutdown] now exiting

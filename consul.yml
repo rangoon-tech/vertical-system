@@ -1,7 +1,7 @@
 version: '2'
 services:
   consul:
-    image: consul:1.7.1
+    image: consul:1.7.3
     container_name: consul
     ports:
       - 8300:8300
@@ -24,7 +24,7 @@ services:
       - "traefik.http.services.consul.loadbalancer.server.port=8500"
       - "traefik.docker.network=proxy"
   consul-config-loader:
-    image: jhipster/consul-config-loader:v0.3.0
+    image: jhipster/consul-config-loader:v0.3.1
     container_name: consul-config-loader
     networks:
       - proxy

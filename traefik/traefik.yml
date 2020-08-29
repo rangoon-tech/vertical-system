@@ -1,13 +1,14 @@
 providers:
-  # consulCatalog:
-  #   prefix: traefik
-  #   exposedByDefault: false
-  #   defaultRule: "PathPrefix(`/services/{{.ServiceName}}`)"
-  #   endpoint:
-  #     address: http://127.0.0.1:8500
-  #     scheme: https
+  consulCatalog:
+    prefix: traefik
+    exposedByDefault: false
+    defaultRule: "PathPrefix(`/services/{{.ServiceName}}`)"
+    endpoint:
+      address: "consul:8500"
+      scheme: https
 api:
   dashboard: true
+  insecure: true
   debug: true
 
 entryPoints:
@@ -15,6 +16,28 @@ entryPoints:
     address: ":80"
   https:
     address: ":443"
+
+# log:
+#   level: DEBUG
+#   filePath: /path/to/log-file.log
+#   format: json
+
+# tracing:
+#   servicename: tracing
+#   jaeger:
+#     samplingParam: 1
+#     samplingServerURL: 'http://12.0.0.1:5778/sampling'
+#     samplingType: const
+#     localAgentHostPort: '12.0.0.1:6831'
+
+# metrics:
+#   prometheus:
+#     buckets:
+#       - 0.1
+#       - 0.3
+#       - 1.2
+#       - 5
+#     entryPoint: metrics
 
 providers:
   docker:

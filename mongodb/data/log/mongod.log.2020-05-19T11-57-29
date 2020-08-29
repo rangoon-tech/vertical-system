@@ -1,0 +1,37 @@
+2020-05-18T17:36:54.791+0800 I CONTROL  [main] Trying to start Windows service 'MongoDB'
+2020-05-18T17:36:54.793+0800 I CONTROL  [initandlisten] MongoDB starting : pid=5240 port=27017 dbpath=c:\data\db 64-bit host=DESKTOP-3LV2IS3
+2020-05-18T17:36:54.793+0800 I CONTROL  [initandlisten] targetMinOS: Windows 7/Windows Server 2008 R2
+2020-05-18T17:36:54.793+0800 I CONTROL  [initandlisten] db version v3.6.4
+2020-05-18T17:36:54.793+0800 I CONTROL  [initandlisten] git version: d0181a711f7e7f39e60b5aeb1dc7097bf6ae5856
+2020-05-18T17:36:54.794+0800 I CONTROL  [initandlisten] OpenSSL version: OpenSSL 1.0.2o-fips  27 Mar 2018
+2020-05-18T17:36:54.794+0800 I CONTROL  [initandlisten] allocator: tcmalloc
+2020-05-18T17:36:54.795+0800 I CONTROL  [initandlisten] modules: enterprise 
+2020-05-18T17:36:54.795+0800 I CONTROL  [initandlisten] build environment:
+2020-05-18T17:36:54.795+0800 I CONTROL  [initandlisten]     distmod: windows-64
+2020-05-18T17:36:54.795+0800 I CONTROL  [initandlisten]     distarch: x86_64
+2020-05-18T17:36:54.795+0800 I CONTROL  [initandlisten]     target_arch: x86_64
+2020-05-18T17:36:54.795+0800 I CONTROL  [initandlisten] options: { config: "C:\Program Files\MongoDB\Server\3.6\mongod.cfg", service: true, storage: { dbPath: "c:\data\db" }, systemLog: { destination: "file", path: "c:\data\log\mongod.log" } }
+2020-05-18T17:36:54.800+0800 I -        [initandlisten] Detected data files in c:\data\db created by the 'wiredTiger' storage engine, so setting the active storage engine to 'wiredTiger'.
+2020-05-18T17:36:54.800+0800 I STORAGE  [initandlisten] wiredtiger_open config: create,cache_size=7585M,session_max=20000,eviction=(threads_min=4,threads_max=4),config_base=false,statistics=(fast),cache_cursors=false,log=(enabled=true,archive=true,path=journal,compressor=snappy),file_manager=(close_idle_time=100000),statistics_log=(wait=0),verbose=(recovery_progress),
+2020-05-18T17:36:54.943+0800 I STORAGE  [initandlisten] WiredTiger message [1589794614:943177][5240:140715473002064], txn-recover: Main recovery loop: starting at 132/64768
+2020-05-18T17:36:55.059+0800 I STORAGE  [initandlisten] WiredTiger message [1589794615:59176][5240:140715473002064], txn-recover: Recovering log 132 through 133
+2020-05-18T17:36:55.118+0800 I STORAGE  [initandlisten] WiredTiger message [1589794615:118176][5240:140715473002064], txn-recover: Recovering log 133 through 133
+2020-05-18T17:36:55.181+0800 I STORAGE  [initandlisten] WiredTiger message [1589794615:181175][5240:140715473002064], txn-recover: Set global recovery timestamp: 0
+2020-05-18T17:36:55.217+0800 I CONTROL  [initandlisten] 
+2020-05-18T17:36:55.217+0800 I CONTROL  [initandlisten] ** WARNING: Access control is not enabled for the database.
+2020-05-18T17:36:55.217+0800 I CONTROL  [initandlisten] **          Read and write access to data and configuration is unrestricted.
+2020-05-18T17:36:55.217+0800 I CONTROL  [initandlisten] 
+2020-05-18T17:36:55.217+0800 I CONTROL  [initandlisten] ** WARNING: This server is bound to localhost.
+2020-05-18T17:36:55.217+0800 I CONTROL  [initandlisten] **          Remote systems will be unable to connect to this server. 
+2020-05-18T17:36:55.217+0800 I CONTROL  [initandlisten] **          Start the server with --bind_ip <address> to specify which IP 
+2020-05-18T17:36:55.217+0800 I CONTROL  [initandlisten] **          addresses it should serve responses from, or with --bind_ip_all to
+2020-05-18T17:36:55.217+0800 I CONTROL  [initandlisten] **          bind to all interfaces. If this behavior is desired, start the
+2020-05-18T17:36:55.217+0800 I CONTROL  [initandlisten] **          server with --bind_ip 127.0.0.1 to disable this warning.
+2020-05-18T17:36:55.218+0800 I CONTROL  [initandlisten] 
+2020-05-18T17:36:55.218+0800 I CONTROL  [initandlisten] 
+2020-05-18T17:36:55.218+0800 I CONTROL  [initandlisten] ** WARNING: The file system cache of this machine is configured to be greater than 40% of the total memory. This can lead to increased memory pressure and poor performance.
+2020-05-18T17:36:55.218+0800 I CONTROL  [initandlisten] See http://dochub.mongodb.org/core/wt-windows-system-file-cache
+2020-05-18T17:36:55.218+0800 I CONTROL  [initandlisten] 
+2020-05-18T17:36:55.496+0800 I FTDC     [initandlisten] Initializing full-time diagnostic data capture with directory 'c:/data/db/diagnostic.data'
+2020-05-18T17:36:55.501+0800 I NETWORK  [initandlisten] waiting for connections on port 27017
+2020-05-18T17:36:55.502+0800 I STORAGE  [initandlisten] Service running

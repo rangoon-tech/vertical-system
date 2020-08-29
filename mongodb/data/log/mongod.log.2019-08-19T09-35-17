@@ -1,0 +1,54 @@
+2019-08-09T00:51:40.276+0800 I CONTROL  [main] Trying to start Windows service 'MongoDB'
+2019-08-09T00:51:40.277+0800 I CONTROL  [initandlisten] MongoDB starting : pid=4296 port=27017 dbpath=c:\data\db 64-bit host=DESKTOP-3LV2IS3
+2019-08-09T00:51:40.277+0800 I CONTROL  [initandlisten] targetMinOS: Windows 7/Windows Server 2008 R2
+2019-08-09T00:51:40.277+0800 I CONTROL  [initandlisten] db version v3.6.4
+2019-08-09T00:51:40.277+0800 I CONTROL  [initandlisten] git version: d0181a711f7e7f39e60b5aeb1dc7097bf6ae5856
+2019-08-09T00:51:40.278+0800 I CONTROL  [initandlisten] OpenSSL version: OpenSSL 1.0.2o-fips  27 Mar 2018
+2019-08-09T00:51:40.278+0800 I CONTROL  [initandlisten] allocator: tcmalloc
+2019-08-09T00:51:40.278+0800 I CONTROL  [initandlisten] modules: enterprise 
+2019-08-09T00:51:40.278+0800 I CONTROL  [initandlisten] build environment:
+2019-08-09T00:51:40.278+0800 I CONTROL  [initandlisten]     distmod: windows-64
+2019-08-09T00:51:40.278+0800 I CONTROL  [initandlisten]     distarch: x86_64
+2019-08-09T00:51:40.278+0800 I CONTROL  [initandlisten]     target_arch: x86_64
+2019-08-09T00:51:40.278+0800 I CONTROL  [initandlisten] options: { config: "C:\Program Files\MongoDB\Server\3.6\mongod.cfg", service: true, storage: { dbPath: "c:\data\db" }, systemLog: { destination: "file", path: "c:\data\log\mongod.log" } }
+2019-08-09T00:51:40.282+0800 I -        [initandlisten] Detected data files in c:\data\db created by the 'wiredTiger' storage engine, so setting the active storage engine to 'wiredTiger'.
+2019-08-09T00:51:40.282+0800 I STORAGE  [initandlisten] wiredtiger_open config: create,cache_size=7585M,session_max=20000,eviction=(threads_min=4,threads_max=4),config_base=false,statistics=(fast),cache_cursors=false,log=(enabled=true,archive=true,path=journal,compressor=snappy),file_manager=(close_idle_time=100000),statistics_log=(wait=0),verbose=(recovery_progress),
+2019-08-09T00:51:40.435+0800 I STORAGE  [initandlisten] WiredTiger message [1565283100:434899][4296:140719256456272], txn-recover: Main recovery loop: starting at 54/4613248
+2019-08-09T00:51:40.517+0800 I STORAGE  [initandlisten] WiredTiger message [1565283100:517899][4296:140719256456272], txn-recover: Recovering log 54 through 55
+2019-08-09T00:51:40.568+0800 I STORAGE  [initandlisten] WiredTiger message [1565283100:567901][4296:140719256456272], txn-recover: Recovering log 55 through 55
+2019-08-09T00:51:40.629+0800 I STORAGE  [initandlisten] WiredTiger message [1565283100:629900][4296:140719256456272], txn-recover: Set global recovery timestamp: 0
+2019-08-09T00:51:40.659+0800 I CONTROL  [initandlisten] 
+2019-08-09T00:51:40.659+0800 I CONTROL  [initandlisten] ** WARNING: Access control is not enabled for the database.
+2019-08-09T00:51:40.660+0800 I CONTROL  [initandlisten] **          Read and write access to data and configuration is unrestricted.
+2019-08-09T00:51:40.660+0800 I CONTROL  [initandlisten] 
+2019-08-09T00:51:40.660+0800 I CONTROL  [initandlisten] ** WARNING: This server is bound to localhost.
+2019-08-09T00:51:40.660+0800 I CONTROL  [initandlisten] **          Remote systems will be unable to connect to this server. 
+2019-08-09T00:51:40.660+0800 I CONTROL  [initandlisten] **          Start the server with --bind_ip <address> to specify which IP 
+2019-08-09T00:51:40.660+0800 I CONTROL  [initandlisten] **          addresses it should serve responses from, or with --bind_ip_all to
+2019-08-09T00:51:40.660+0800 I CONTROL  [initandlisten] **          bind to all interfaces. If this behavior is desired, start the
+2019-08-09T00:51:40.660+0800 I CONTROL  [initandlisten] **          server with --bind_ip 127.0.0.1 to disable this warning.
+2019-08-09T00:51:40.660+0800 I CONTROL  [initandlisten] 
+2019-08-09T00:51:40.660+0800 I CONTROL  [initandlisten] 
+2019-08-09T00:51:40.660+0800 I CONTROL  [initandlisten] ** WARNING: The file system cache of this machine is configured to be greater than 40% of the total memory. This can lead to increased memory pressure and poor performance.
+2019-08-09T00:51:40.660+0800 I CONTROL  [initandlisten] See http://dochub.mongodb.org/core/wt-windows-system-file-cache
+2019-08-09T00:51:40.660+0800 I CONTROL  [initandlisten] 
+2019-08-09T00:51:41.108+0800 I FTDC     [initandlisten] Initializing full-time diagnostic data capture with directory 'c:/data/db/diagnostic.data'
+2019-08-09T00:51:41.110+0800 I NETWORK  [initandlisten] waiting for connections on port 27017
+2019-08-09T00:51:41.110+0800 I STORAGE  [initandlisten] Service running
+2019-08-12T19:52:48.730+0800 E STORAGE  [thread1] WiredTiger error (0) [1565610768:650553][4296:140719256456272], log-server: c:\data\db\journal\*: directory-list: FindNextFileW: Insufficient system resources exist to complete the requested service.
+2019-08-12T19:52:48.781+0800 E STORAGE  [thread1] WiredTiger error (-31802) [1565610768:775552][4296:140719256456272], log-server: c:\data\db\journal: directory-list, prefix "WiredTigerLog": WT_ERROR: non-specific WiredTiger error
+2019-08-12T19:52:48.781+0800 E STORAGE  [thread1] WiredTiger error (-31802) [1565610768:780553][4296:140719256456272], log-server: log archive server error: WT_ERROR: non-specific WiredTiger error
+2019-08-12T19:52:48.781+0800 E STORAGE  [thread1] WiredTiger error (-31802) [1565610768:780553][4296:140719256456272], log-server: log server error: WT_ERROR: non-specific WiredTiger error
+2019-08-12T19:52:48.781+0800 E STORAGE  [thread1] WiredTiger error (-31804) [1565610768:780553][4296:140719256456272], log-server: the process must exit and restart: WT_PANIC: WiredTiger library panic
+2019-08-12T19:52:48.794+0800 F -        [thread1] Fatal Assertion 28558 at src\mongo\db\storage\wiredtiger\wiredtiger_util.cpp 361
+2019-08-12T19:52:48.797+0800 F -        [thread1] 
+
+***aborting after fassert() failure
+
+
+2019-08-12T19:52:48.798+0800 F -        [WTJournalFlusher] Fatal Assertion 28559 at src\mongo\db\storage\wiredtiger\wiredtiger_util.cpp 64
+2019-08-12T19:52:48.798+0800 F -        [WTJournalFlusher] 
+
+***aborting after fassert() failure
+
+

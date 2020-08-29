@@ -1,0 +1,13 @@
+version: '2'
+services:
+  cloudblob-mongodb:
+    image: mongo:4.2.6
+    container_name: cloudblob-mongodb
+    volumes:
+      - ./mongodb/:/opt/jboss/mongodb/data/db
+    networks:
+      proxy:
+    labels:
+      - "traefik.enable=false"
+    ports:
+      - '27017:27017'

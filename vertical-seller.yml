@@ -1,0 +1,38 @@
+version: '2'
+
+services:
+  vsseller:
+    image: thetlwinoo/vertical-seller
+    # container_name: vertical-gateway
+    container_name: vertical-seller
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      proxy:
+    environment:
+      - _JAVA_OPTIONS=-Xmx512m -Xms256m
+      - 'SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_OIDC_ISSUER_URI=https://auth.rangoon-tech.com/auth/realms/jhipster'
+      - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_ID=internal
+      - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_SECRET=internal
+      - JHIPSTER_SLEEP=30
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.vsseller.entrypoints=http"
+      - "traefik.http.routers.vsseller.rule=Host(`seller.zezawar.com`)"
+      - "traefik.http.middlewares.vsseller-https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.routers.vsseller.middlewares=vsseller-https-redirect"
+      - "traefik.http.routers.vsseller-secure.entrypoints=https"
+      - "traefik.http.routers.vsseller-secure.rule=Host(`seller.zezawar.com`)"
+      - "traefik.http.routers.vsseller-secure.tls=true"
+      # - "traefik.http.routers.seller-secure.tls.certresolver=http"
+      - "traefik.http.routers.vsseller-secure.service=vsseller"
+      - "traefik.http.services.vsseller.loadbalancer.server.port=83"
+      - "traefik.docker.network=proxy"
+    ports:
+      - 8082:83
+    # depends_on:
+    #   - vertical
+networks:
+  proxy:
+    external: true

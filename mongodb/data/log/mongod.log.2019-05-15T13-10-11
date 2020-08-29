@@ -1,0 +1,48 @@
+2019-05-01T11:39:07.796+0800 I CONTROL  [main] Trying to start Windows service 'MongoDB'
+2019-05-01T11:39:07.797+0800 I CONTROL  [initandlisten] MongoDB starting : pid=4796 port=27017 dbpath=c:\data\db 64-bit host=DESKTOP-3LV2IS3
+2019-05-01T11:39:07.797+0800 I CONTROL  [initandlisten] targetMinOS: Windows 7/Windows Server 2008 R2
+2019-05-01T11:39:07.798+0800 I CONTROL  [initandlisten] db version v3.6.4
+2019-05-01T11:39:07.798+0800 I CONTROL  [initandlisten] git version: d0181a711f7e7f39e60b5aeb1dc7097bf6ae5856
+2019-05-01T11:39:07.799+0800 I CONTROL  [initandlisten] OpenSSL version: OpenSSL 1.0.2o-fips  27 Mar 2018
+2019-05-01T11:39:07.799+0800 I CONTROL  [initandlisten] allocator: tcmalloc
+2019-05-01T11:39:07.799+0800 I CONTROL  [initandlisten] modules: enterprise 
+2019-05-01T11:39:07.799+0800 I CONTROL  [initandlisten] build environment:
+2019-05-01T11:39:07.799+0800 I CONTROL  [initandlisten]     distmod: windows-64
+2019-05-01T11:39:07.799+0800 I CONTROL  [initandlisten]     distarch: x86_64
+2019-05-01T11:39:07.799+0800 I CONTROL  [initandlisten]     target_arch: x86_64
+2019-05-01T11:39:07.799+0800 I CONTROL  [initandlisten] options: { config: "C:\Program Files\MongoDB\Server\3.6\mongod.cfg", service: true, storage: { dbPath: "c:\data\db" }, systemLog: { destination: "file", path: "c:\data\log\mongod.log" } }
+2019-05-01T11:39:07.801+0800 W -        [initandlisten] Detected unclean shutdown - c:\data\db\mongod.lock is not empty.
+2019-05-01T11:39:07.803+0800 I -        [initandlisten] Detected data files in c:\data\db created by the 'wiredTiger' storage engine, so setting the active storage engine to 'wiredTiger'.
+2019-05-01T11:39:07.803+0800 W STORAGE  [initandlisten] Recovering data from the last clean checkpoint.
+2019-05-01T11:39:07.803+0800 I STORAGE  [initandlisten] wiredtiger_open config: create,cache_size=7585M,session_max=20000,eviction=(threads_min=4,threads_max=4),config_base=false,statistics=(fast),cache_cursors=false,log=(enabled=true,archive=true,path=journal,compressor=snappy),file_manager=(close_idle_time=100000),statistics_log=(wait=0),verbose=(recovery_progress),
+2019-05-01T11:39:07.987+0800 I STORAGE  [initandlisten] WiredTiger message [1556681947:987081][4796:140731259636816], txn-recover: Main recovery loop: starting at 45/4608
+2019-05-01T11:39:07.988+0800 I STORAGE  [initandlisten] WiredTiger message [1556681947:988079][4796:140731259636816], txn-recover: Recovering log 45 through 46
+2019-05-01T11:39:08.089+0800 I STORAGE  [initandlisten] WiredTiger message [1556681948:89806][4796:140731259636816], txn-recover: Recovering log 46 through 46
+2019-05-01T11:39:08.145+0800 I STORAGE  [initandlisten] WiredTiger message [1556681948:145657][4796:140731259636816], txn-recover: Set global recovery timestamp: 0
+2019-05-01T11:39:08.182+0800 I CONTROL  [initandlisten] 
+2019-05-01T11:39:08.182+0800 I CONTROL  [initandlisten] ** WARNING: Access control is not enabled for the database.
+2019-05-01T11:39:08.182+0800 I CONTROL  [initandlisten] **          Read and write access to data and configuration is unrestricted.
+2019-05-01T11:39:08.182+0800 I CONTROL  [initandlisten] 
+2019-05-01T11:39:08.182+0800 I CONTROL  [initandlisten] ** WARNING: This server is bound to localhost.
+2019-05-01T11:39:08.182+0800 I CONTROL  [initandlisten] **          Remote systems will be unable to connect to this server. 
+2019-05-01T11:39:08.182+0800 I CONTROL  [initandlisten] **          Start the server with --bind_ip <address> to specify which IP 
+2019-05-01T11:39:08.183+0800 I CONTROL  [initandlisten] **          addresses it should serve responses from, or with --bind_ip_all to
+2019-05-01T11:39:08.183+0800 I CONTROL  [initandlisten] **          bind to all interfaces. If this behavior is desired, start the
+2019-05-01T11:39:08.183+0800 I CONTROL  [initandlisten] **          server with --bind_ip 127.0.0.1 to disable this warning.
+2019-05-01T11:39:08.183+0800 I CONTROL  [initandlisten] 
+2019-05-01T11:39:08.183+0800 I CONTROL  [initandlisten] 
+2019-05-01T11:39:08.183+0800 I CONTROL  [initandlisten] ** WARNING: The file system cache of this machine is configured to be greater than 40% of the total memory. This can lead to increased memory pressure and poor performance.
+2019-05-01T11:39:08.183+0800 I CONTROL  [initandlisten] See http://dochub.mongodb.org/core/wt-windows-system-file-cache
+2019-05-01T11:39:08.183+0800 I CONTROL  [initandlisten] 
+2019-05-01T11:39:08.461+0800 I FTDC     [initandlisten] Initializing full-time diagnostic data capture with directory 'c:/data/db/diagnostic.data'
+2019-05-01T11:39:08.463+0800 I NETWORK  [initandlisten] waiting for connections on port 27017
+2019-05-01T11:39:08.463+0800 I STORAGE  [initandlisten] Service running
+2019-05-01T11:39:09.024+0800 I FTDC     [ftdc] Unclean full-time diagnostic data capture shutdown detected, found interim file, some metrics may have been lost. OK
+2019-05-15T21:09:30.012+0800 I CONTROL  [serviceShutdown] got SERVICE_CONTROL_PRESHUTDOWN request from Windows Service Control Manager, will terminate after current cmd ends
+2019-05-15T21:09:30.013+0800 I NETWORK  [serviceShutdown] shutdown: going to close listening sockets...
+2019-05-15T21:09:30.016+0800 F CONTROL  [thread1] Encountered an error in PeriodicRunnerASIO: The I/O operation has been aborted because of either a thread exit or an application request.
+2019-05-15T21:09:30.016+0800 F CONTROL  [thread1] Encountered an error in PeriodicRunnerASIO: The I/O operation has been aborted because of either a thread exit or an application request.
+2019-05-15T21:09:30.016+0800 I FTDC     [serviceShutdown] Shutting down full-time diagnostic data capture
+2019-05-15T21:09:30.021+0800 I STORAGE  [serviceShutdown] WiredTigerKVEngine shutting down
+2019-05-15T21:09:30.168+0800 I STORAGE  [serviceShutdown] shutdown: removing fs lock...
+2019-05-15T21:09:30.168+0800 I CONTROL  [serviceShutdown] now exiting

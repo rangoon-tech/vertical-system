@@ -4,10 +4,9 @@ volumes:
      driver: local
      
 services:
-  vertical:
-    image: thetlwinoo/epm-web:v6.5.1
-    # container_name: vertical-gateway
-    container_name: vertical-monolithic
+  gateway:
+    image: thetlwinoo/vertical-gateway
+    container_name: vertical-gateway
     restart: unless-stopped
     security_opt:
       - no-new-privileges:true
@@ -16,33 +15,32 @@ services:
     environment:
       - _JAVA_OPTIONS=-Xmx512m -Xms256m
       - 'SPRING_PROFILES_ACTIVE=prod,swagger'
-      # - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
-      # - SPRING_CLOUD_CONSUL_HOST=consul
-      # - SPRING_CLOUD_CONSUL_PORT=8500
-      - 'SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/vertical'
+      - SPRING_CLOUD_CONSUL_HOST=consul
+      - SPRING_CLOUD_CONSUL_PORT=8500
+      - 'SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/vertical_gateway'
       - 'SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_OIDC_ISSUER_URI=https://auth.rangoon-tech.com/auth/realms/jhipster'
       - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_ID=web_app
       - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_SECRET=web_app
       - JHIPSTER_SLEEP=30
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.vertical.entrypoints=http"
-      - "traefik.http.routers.vertical.rule=Host(`system.zezawar.com`)"
-      - "traefik.http.middlewares.vertical-https-redirect.redirectscheme.scheme=https"
-      - "traefik.http.routers.vertical.middlewares=vertical-https-redirect"
-      - "traefik.http.routers.vertical-secure.entrypoints=https"
-      - "traefik.http.routers.vertical-secure.rule=Host(`system.zezawar.com`)"
-      - "traefik.http.routers.vertical-secure.tls=true"
-      # - "traefik.http.routers.vertical-secure.tls.certresolver=http"
-      - "traefik.http.routers.vertical-secure.service=vertical"
-      - "traefik.http.services.vertical.loadbalancer.server.port=8080"
+      - "traefik.http.routers.gateway.entrypoints=http"
+      - "traefik.http.routers.gateway.rule=Host(`system.zezawar.com`)"
+      - "traefik.http.middlewares.gateway-https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.routers.vertical.middlewares=gateway-https-redirect"
+      - "traefik.http.routers.gateway-secure.entrypoints=https"
+      - "traefik.http.routers.gateway-secure.rule=Host(`system.zezawar.com`)"
+      - "traefik.http.routers.gateway-secure.tls=true"
+      # - "traefik.http.routers.gateway-secure.tls.certresolver=http"
+      - "traefik.http.routers.gateway-secure.service=gateway"
+      - "traefik.http.services.gateway.loadbalancer.server.port=8180"
       - "traefik.docker.network=proxy"
     ports:
-      - 8080:8080
-  epmtest:
-    image: thetlwinoo/epm-test:v1
-    # container_name: vertical-gateway
-    container_name: vertical-test
+      - 8180:8180  
+
+  vertical_commerce:
+    image: thetlwinoo/vertical-commerce
+    container_name: vertical-commerce
     restart: unless-stopped
     security_opt:
       - no-new-privileges:true
@@ -51,154 +49,88 @@ services:
     environment:
       - _JAVA_OPTIONS=-Xmx512m -Xms256m
       - 'SPRING_PROFILES_ACTIVE=prod,swagger'
-      # - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
-      # - SPRING_CLOUD_CONSUL_HOST=consul
-      # - SPRING_CLOUD_CONSUL_PORT=8500
-      - 'SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/testing'
+      - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
+      - SPRING_CLOUD_CONSUL_HOST=consul
+      - SPRING_CLOUD_CONSUL_PORT=8500
+      - 'SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/zezawar_db'
       - 'SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_OIDC_ISSUER_URI=https://auth.rangoon-tech.com/auth/realms/jhipster'
-      - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_ID=web_app
-      - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_SECRET=web_app
+      - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_ID=internal
+      - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_SECRET=internal
+      - JHIPSTER_SLEEP=30
+      # - 'SPRING_DATA_JEST_URI=http://zezawar-elasticsearch:9200'
+      # - 'SPRING_ELASTICSEARCH_REST_URIS=http://zezawar-elasticsearch:9200'
+    labels:
+      - "traefik.enable=false"
+    ports:
+      - 8181:8181
+
+  vertical_cloudblob:
+    image: thetlwinoo/vertical-cloudblob
+    container_name: vertical-cloudblob
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      proxy:
+    environment:
+      - _JAVA_OPTIONS=-Xmx512m -Xms256m
+      - 'SPRING_PROFILES_ACTIVE=prod,swagger'
+      - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
+      - SPRING_CLOUD_CONSUL_HOST=consul
+      - SPRING_CLOUD_CONSUL_PORT=8500
+      - SPRING_DATA_MONGODB_URI=mongodb://cloudblob-mongodb:27017
+      - SPRING_DATA_MONGODB_DATABASE=cloudblob
+      - 'SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_OIDC_ISSUER_URI=https://auth.rangoon-tech.com/auth/realms/jhipster'
+      - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_ID=internal
+      - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_SECRET=internal
       - JHIPSTER_SLEEP=30
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.epmtest.entrypoints=http"
-      - "traefik.http.routers.epmtest.rule=Host(`test.zezawar.com`)"
-      - "traefik.http.middlewares.epmtest-https-redirect.redirectscheme.scheme=https"
-      - "traefik.http.routers.epmtest.middlewares=epmtest-https-redirect"
-      - "traefik.http.routers.epmtest-secure.entrypoints=https"
-      - "traefik.http.routers.epmtest-secure.rule=Host(`test.zezawar.com`)"
-      - "traefik.http.routers.epmtest-secure.tls=true"
-      # - "traefik.http.routers.vertical-secure.tls.certresolver=http"
-      - "traefik.http.routers.epmtest-secure.service=epmtest"
-      - "traefik.http.services.epmtest.loadbalancer.server.port=8081"
-      - "traefik.docker.network=proxy"
+      - "traefik.enable=false"
     ports:
-      - 8081:8081
-  # zezawar:
-  #   image: thetlwinoo/zezawar
-  #   container_name: vertical-zezawar
-  #   restart: unless-stopped
-  #   security_opt:
-  #     - no-new-privileges:true
-  #   networks:
-  #     proxy:
-  #   environment:
-  #     - _JAVA_OPTIONS=-Xmx512m -Xms256m
-  #     - 'SPRING_PROFILES_ACTIVE=prod,swagger'
-  #     - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
-  #     - SPRING_CLOUD_CONSUL_HOST=consul
-  #     - SPRING_CLOUD_CONSUL_PORT=8500
-  #     - 'SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/zezawar'
-  #     - 'SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_OIDC_ISSUER_URI=https://auth.rangoon-tech.com/auth/realms/jhipster'
-  #     - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_ID=internal
-  #     - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_SECRET=internal
-  #     - JHIPSTER_SLEEP=30
-  #   labels:
-  #     - "traefik.enable=false"
-  #   ports:
-  #     - 8181:8181
-  # consul:
+      - 8182:8182
+
+    # zezawar-elasticsearch:
+    #   image: 'docker.elastic.co/elasticsearch/elasticsearch:6.8.6'
+    #   container_name: zezawar-elasticsearch
+    #   environment:
+    #     - ES_JAVA_OPTS=-Xms1024m -Xmx1024m
+    #     - discovery.type=single-node
+    #   ports:
+    #     - 9200:9200
+    #     - 9300:9300
+
+  # vsgateway:
   #   extends:
-  #     file: consul.yml
-  #     service: consul
-  # consul-config-loader:
+  #     file: vertical-gateway.yml
+  #     service: vsgateway 
+  # vscommerce:
   #   extends:
-  #     file: consul.yml
-  #     service: consul-config-loader
-  sellerapp:
-    image: thetlwinoo/eps-seller:test
-    # container_name: vertical-gateway
-    container_name: eps-seller
-    restart: unless-stopped
-    security_opt:
-      - no-new-privileges:true
-    networks:
-      proxy:
-    environment:
-      - _JAVA_OPTIONS=-Xmx512m -Xms256m
-      - 'SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_OIDC_ISSUER_URI=https://auth.rangoon-tech.com/auth/realms/jhipster'
-      - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_ID=internal
-      - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_SECRET=internal
-      - JHIPSTER_SLEEP=30
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.sellerapp.entrypoints=http"
-      - "traefik.http.routers.sellerapp.rule=Host(`seller.zezawar.com`)"
-      - "traefik.http.middlewares.sellerapp-https-redirect.redirectscheme.scheme=https"
-      - "traefik.http.routers.sellerapp.middlewares=sellerapp-https-redirect"
-      - "traefik.http.routers.sellerapp-secure.entrypoints=https"
-      - "traefik.http.routers.sellerapp-secure.rule=Host(`seller.zezawar.com`)"
-      - "traefik.http.routers.sellerapp-secure.tls=true"
-      # - "traefik.http.routers.seller-secure.tls.certresolver=http"
-      - "traefik.http.routers.sellerapp-secure.service=sellerapp"
-      - "traefik.http.services.sellerapp.loadbalancer.server.port=81"
-      - "traefik.docker.network=proxy"
-    ports:
-      - 8082:81
-    depends_on:
-      - vertical
-  onlineapp:
-    image: thetlwinoo/eps-online
-    container_name: eps-online
-    restart: unless-stopped
-    security_opt:
-      - no-new-privileges:true
-    networks:
-      proxy:
-    environment:
-      - _JAVA_OPTIONS=-Xmx512m -Xms256m
-      - 'SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_OIDC_ISSUER_URI=https://auth.rangoon-tech.com/auth/realms/jhipster'
-      - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_ID=internal
-      - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_SECRET=internal
-      - JHIPSTER_SLEEP=30
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.onlineapp.entrypoints=http"
-      - "traefik.http.routers.onlineapp.rule=Host(`www.zezawar.com`)"
-      - "traefik.http.middlewares.onlineapp-https-redirect.redirectscheme.scheme=https"
-      - "traefik.http.routers.onlineapp.middlewares=onlineapp-https-redirect"
-      - "traefik.http.routers.onlineapp-secure.entrypoints=https"
-      - "traefik.http.routers.onlineapp-secure.rule=Host(`www.zezawar.com`)"
-      - "traefik.http.routers.onlineapp-secure.tls=true"
-      # - "traefik.http.routers.seller-secure.tls.certresolver=http"
-      - "traefik.http.routers.onlineapp-secure.service=onlineapp"
-      - "traefik.http.services.onlineapp.loadbalancer.server.port=82"
-      - "traefik.docker.network=proxy"
-    ports:
-      - 8083:82
-    depends_on:
-      - vertical
-  ngkeycloak:
-    image: thetlwinoo/ng-keycloak
-    container_name: ng-keycloak
-    restart: unless-stopped
-    security_opt:
-      - no-new-privileges:true
-    networks:
-      proxy:
-    environment:
-      - _JAVA_OPTIONS=-Xmx512m -Xms256m
-      - 'SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_OIDC_ISSUER_URI=https://auth.rangoon-tech.com/auth/realms/jhipster'
-      - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_ID=internal
-      - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_SECRET=internal
-      - JHIPSTER_SLEEP=30
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.ngkeycloak.entrypoints=http"
-      - "traefik.http.routers.ngkeycloak.rule=Host(`client.zezawar.com`)"
-      - "traefik.http.middlewares.ngkeycloak-https-redirect.redirectscheme.scheme=https"
-      - "traefik.http.routers.ngkeycloak.middlewares=ngkeycloak-https-redirect"
-      - "traefik.http.routers.ngkeycloak-secure.entrypoints=https"
-      - "traefik.http.routers.ngkeycloak-secure.rule=Host(`client.zezawar.com`)"
-      - "traefik.http.routers.ngkeycloak-secure.tls=true"
-      # - "traefik.http.routers.seller-secure.tls.certresolver=http"
-      - "traefik.http.routers.ngkeycloak-secure.service=ngkeycloak"
-      - "traefik.http.services.ngkeycloak.loadbalancer.server.port=83"
-      - "traefik.docker.network=proxy"
-    ports:
-      - 8084:83
-    depends_on:
-      - vertical
+  #     file: vertical-commerce.yml
+  #     service: vscommerce
+  # vscloudblob:
+  #   extends:
+  #     file: vertical-cloudblob.yml
+  #     service: vscloudblob
+  consul:
+    extends:
+      file: consul.yml
+      service: consul
+  consul-config-loader:
+    extends:
+      file: consul.yml
+      service: consul-config-loader  
+  vertical-portal:
+    extends:
+      file: vertical-portal.yml
+      service: vsportal
+  vertical-seller:
+    extends:
+      file: vertical-seller.yml
+      service: vsseller 
+  vertical-online:
+    extends:
+      file: vertical-online.yml
+      service: vsonline 
   traefik:
     extends:
       file: traefik.yml
@@ -214,7 +146,11 @@ services:
   keycloak:
     extends:
       file: keycloak.yml
-      service: keycloak  
+      service: keycloak
+  cloudblob-mongodb:
+    extends:
+      file: mongodb.yml
+      service: cloudblob-mongodb  
 
 networks:
   proxy:
